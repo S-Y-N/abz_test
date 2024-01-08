@@ -23,9 +23,9 @@ RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
 RUN docker-php-ext-install pdo pdo_mysql sockets
 
-
+COPY --chown=laravel:laravel ./.docker/php/entrypoint.sh /var/www/entrypoint.sh
 USER laravel
 
 EXPOSE 9000
 
-CMD ["php-fpm",  "-y", "/usr/local/etc/php-fpm.conf", "-R"]
+ENTRYPOINT ["./entrypoint.sh"]
